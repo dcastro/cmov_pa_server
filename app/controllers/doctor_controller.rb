@@ -10,7 +10,7 @@ class DoctorController < ApplicationController
   end
   
   def ind
-    @doctors = Doctor.select([:name, :birthdate])
+    @doctors = Doctor.select(["name, birthdate"]).find(:all, :include => :specialty)
     render json: @doctors
   end
   
