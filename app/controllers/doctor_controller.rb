@@ -1,19 +1,15 @@
 class DoctorController < ApplicationController
   def index
     
-    @doctors = Doctor.all
+    @doctors = Doctor.find(:all, :include => :specialty)
+    
 
     respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @doctors }
+      format.html { render json: @doctors.to_json( :only => [:name, :birthdate], :include => :specialty) }# index.html.erb
+      format.json { render json: @doctors.to_json( :only => [:name, :birthdate], :include => :specialty) }
     end
   end
-  
-  def ind
-    @doctors = Doctor.select(["name, birthdate"]).find(:all, :include => :specialty)
-    render json: @doctors
-  end
-  
+    
   
 
 end

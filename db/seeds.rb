@@ -5,3 +5,12 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+Specialty.create :name => "Surgery"
+Specialty.create :name => "Oftalmology"
+
+
+Doctor.create :name => 'Diogo', :birthdate => Date.new(1989, 01, 02), :specialty => Specialty.all.first
+Doctor.create :name => 'Fernando', :birthdate => Date.today, :specialty =>  Specialty.all.second
+
+
