@@ -15,4 +15,15 @@ class DoctorController < ApplicationController
     
   end
   
+  def specialties
+    render json: Specialty.all.to_json(:only => :name)  
+  end
+  
+  def index_by_specialty
+    @doctors = Specialty.find_by_name(params[:specialty]).doctors
+    #Doctor.where(:specialty => params[:specialty]).find(:all, :include => [:specialty, :user])
+    
+    render json: @doctors.to_json( :only => [:name, :birthdate], :include => [:user])
+  end
+  
 end

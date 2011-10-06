@@ -1,5 +1,6 @@
 class Doctor < ActiveRecord::Base
   belongs_to :specialty
+  has_many :schedule_plans
   has_one :user, :as => :utilizador
   
 =begin

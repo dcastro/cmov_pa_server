@@ -21,5 +21,7 @@ Doctor.create :sex => "male", :specialty => Specialty.all.second, :user => User.
 
 Patient.create :sex => "female", :user => User.create(:name => "Sonia", :birthdate => Date.yesterday, :username => "sonia", :password => "123")
 
-
+VersionLog.create :table => "doctors", :version => 1
+VersionLog.create :table => "schedule_plans", :version => 1
+VersionLog.create :table => "appointments", :version => 1
 

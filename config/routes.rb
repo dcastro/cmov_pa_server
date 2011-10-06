@@ -8,11 +8,14 @@ CmovPaServer::Application.routes.draw do
   get "user/profile"
   
   post "user/create"
+  
+  get "doctor/specialties"
 
 
   get "doctor/index"
   get "doctor/ind"
   get "doctor/show"
+  get "doctor/index_by_specialty"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

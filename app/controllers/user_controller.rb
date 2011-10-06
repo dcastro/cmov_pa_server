@@ -21,7 +21,7 @@ class UserController < ApplicationController
                                   :only => [:birthdate, :name, :username, :utilizador_type],
                                   :include => {
                                     :utilizador => {
-                                        :only => [:sex, :photo]
+                                        :only => [:sex, :photo, :address]
                                     }
                                   })
   end

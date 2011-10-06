@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  active: false
+  start_date: 2011-10-06
+  doctor_id: 1
+
+two:
+  active: false
+  start_date: 2011-10-06
+  doctor_id: 1
