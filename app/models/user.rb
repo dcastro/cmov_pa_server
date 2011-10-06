@@ -1,8 +1,10 @@
-class Doctor < ActiveRecord::Base
-  belongs_to :specialty
-  has_one :user, :as => :utilizador
+class User < ActiveRecord::Base
+  belongs_to :utilizador, :polymorphic => true
   
-=begin
+  validates :username, :uniqueness => true
+  validates :username, :name, :presence => true
+  
+  
   validates :password, :confirmation => true #checks if the "type your pw" and "re-type your pw" fields match
   attr_accessor  :password_confirmation
   attr_reader   :password
@@ -32,12 +34,11 @@ class Doctor < ActiveRecord::Base
     end
   end
 
-  def Doctor.authenticate(name, password)
-    if user = find_by_name(name)
+  def User.authenticate(username, password)
+    if user = find_by_username(username)
       if user.hashed_password == encrypt_password(password, user.salt)
         user
       end
     end
   end
-=end  
 end

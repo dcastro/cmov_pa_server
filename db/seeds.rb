@@ -6,11 +6,20 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+
+Doctor.delete_all
+Specialty.delete_all
+User.delete_all
+Patient.delete_all
+
 Specialty.create :name => "Surgery"
 Specialty.create :name => "Oftalmology"
 
 
-Doctor.create :name => 'Diogo', :birthdate => Date.new(1989, 01, 02), :specialty => Specialty.all.first
-Doctor.create :name => 'Fernando', :birthdate => Date.today, :specialty =>  Specialty.all.second
+Doctor.create :sex => "male", :specialty => Specialty.all.first, :user => User.create(:name => "Diogo", :birthdate => Date.new(1989, 01, 02), :username => "dcastro", :password => "1234")
+Doctor.create :sex => "male", :specialty => Specialty.all.second, :user => User.create(:name => "Fernando", :birthdate => Date.today, :username => "fern", :password => "1234")
+
+Patient.create :sex => "female", :user => User.create(:name => "Sonia", :birthdate => Date.yesterday, :username => "sonia", :password => "123")
+
 
 

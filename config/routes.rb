@@ -1,6 +1,18 @@
 CmovPaServer::Application.routes.draw do
+  get "patient/index"
+
+  get "user/login"
+
+  get "user/logout"
+  
+  get "user/profile"
+  
+  post "user/create"
+
+
   get "doctor/index"
   get "doctor/ind"
+  get "doctor/show"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
