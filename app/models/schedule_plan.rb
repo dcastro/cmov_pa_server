@@ -50,7 +50,7 @@ class SchedulePlan < ActiveRecord::Base
         w.compatible_with(ap)
       end
       
-      if @compatibilities.include? false
+      if not @compatibilities.include? true
         errors.add(:workday, "incompatible with existing appointments.")
         return false
       end

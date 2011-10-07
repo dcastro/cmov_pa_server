@@ -1,7 +1,7 @@
 class SchedulePlanController < ApplicationController
   
   # curl -X POST -d "{\"doctor_id\":22,\"days\":[{\"weekday\":2, \"start\":600, \"end\":720}, {\"weekday\":4, \"start\":840, \"end\":1140}]}" localhost:3000/schedule_plan/create
-  # curl -X POST -d "{\"doctor_id\":22,\"days\":[{\"weekday\":2, \"start\":600, \"end\":720}, {\"weekday\":4, \"start\":840, \"end\":1140}], \"start_date\":\"08-10-2011\"}" localhost:3000/schedule_plan/create
+  # curl -X POST -d "{\"doctor_id\":22,\"days\":[{\"weekday\":2, \"start\":600, \"end\":720}, {\"weekday\":6, \"start\":840, \"end\":1140}], \"start_date\":\"08-10-2011\"}" localhost:3000/schedule_plan/create
 
   def create
     

@@ -1,6 +1,6 @@
 class VersionObserver < ActiveRecord::Observer
   
-  observe Doctor, SchedulePlan
+  observe Doctor, SchedulePlan, Appointment
   
   def before_save(model)
     #puts "****************"
