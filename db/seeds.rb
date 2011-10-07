@@ -11,6 +11,11 @@ Doctor.delete_all
 Specialty.delete_all
 User.delete_all
 Patient.delete_all
+VersionLog.delete_all
+
+VersionLog.create :table => "Doctor", :version => 1
+VersionLog.create :table => "SchedulePlan", :version => 1
+VersionLog.create :table => "Appointment", :version => 1
 
 Specialty.create :name => "Surgery"
 Specialty.create :name => "Oftalmology"
@@ -21,7 +26,5 @@ Doctor.create :sex => "male", :specialty => Specialty.all.second, :user => User.
 
 Patient.create :sex => "female", :user => User.create(:name => "Sonia", :birthdate => Date.yesterday, :username => "sonia", :password => "123")
 
-VersionLog.create :table => "doctors", :version => 1
-VersionLog.create :table => "schedule_plans", :version => 1
-VersionLog.create :table => "appointments", :version => 1
+
 

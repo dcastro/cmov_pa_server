@@ -1,4 +1,6 @@
 CmovPaServer::Application.routes.draw do
+  get "version/show"
+
   get "patient/index"
 
   get "user/login"
