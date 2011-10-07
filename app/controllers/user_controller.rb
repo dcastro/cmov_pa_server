@@ -27,7 +27,7 @@ class UserController < ApplicationController
   end
   
   # POST
-  # curl "http://localhost:3000/user/create" -d "{\"name\":\"Pedro\", \"username\":\"ppedro\", \"password\":\"12345\"}"
+  # curl "http://localhost:3000/user/create" -d "{\"name\":\"Pedro\", \"username\":\"ppedro\", \"password\":\"12345\"}" -X POST -v
   def create
     @json = ActiveSupport::JSON.decode(request.body.read)
     @user = User.new :name => @json["name"],

@@ -2,6 +2,7 @@ class Doctor < ActiveRecord::Base
   belongs_to :specialty
   has_many :schedule_plans
   has_one :user, :as => :utilizador
+  has_many :appointments
   
 =begin
   validates :password, :confirmation => true #checks if the "type your pw" and "re-type your pw" fields match
