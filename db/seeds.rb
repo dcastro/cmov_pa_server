@@ -26,5 +26,5 @@ Doctor.create :sex => "male", :specialty => Specialty.all.second, :user => User.
 
 Patient.create :sex => "female", :user => User.create(:name => "Sonia", :birthdate => Date.yesterday, :username => "sonia", :password => "123")
 
-
+Appointment.create! :doctor => Doctor.first, :patient => Patient.first, :scheduled_date => DateTime.new(2011, 10, 8, 10, 30)
 
