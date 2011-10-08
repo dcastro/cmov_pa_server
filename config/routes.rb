@@ -1,4 +1,6 @@
 CmovPaServer::Application.routes.draw do
+  post "appointment/create"
+
   post "schedule_plan/create"
 
   get "version/show"

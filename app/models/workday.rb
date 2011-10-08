@@ -2,6 +2,7 @@ class Workday < ActiveRecord::Base
   belongs_to :schedule_plan
   #after_validation(:on => :create) { no_conflict }
   
+=begin  
   def no_conflict
     return true if self.schedule_plan.active?
     
@@ -12,6 +13,7 @@ class Workday < ActiveRecord::Base
       end
     end
   end
+=end
   
   def compatible_with(ap)
     return true if ap.scheduled_date.wday == self.weekday and (self.start .. self.end).include? ap.minutes
