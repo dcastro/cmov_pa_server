@@ -16,6 +16,8 @@ CmovPaServer::Application.routes.draw do
   post "user/create"
   
   get "doctor/specialties"
+  
+  get "schedule_plan/next"
 
 
   get "doctor/index"

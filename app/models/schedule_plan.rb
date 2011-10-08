@@ -54,10 +54,64 @@ class SchedulePlan < ActiveRecord::Base
         errors.add(:workday, "incompatible with existing appointments (name = #{ap.patient.user.name} / id = #{ap.id}).")
         return false
       end
+    end
+  end
+  
+  def SchedulePlan.next_available_day(doctor, date)
+    @sch = doctor.schedule_plans.find_by_active(true)
+    @sch2 = doctor.schedule_plans.find_by_active(false)
+    
+    
+    while true do 
+      @sch = @sch2 if date >= @sch2.start_date
       
+      #determin which workdays match the given date
+      @days = @sch.workdays.where(:weekday => date.wday).find(:all)
+      
+      if @days.empty?
+     #   next
+      end
+      
+      #determin possible scheduled times for appointments for the given date
+      @hours = []
+      #puts @days
+      
+      @days.each do |d|
+        start = d.start
+        e = d.end
+        
+        #puts start
+        #puts d.end
+        #puts @hours
+        
+        until start > e do
+          @hours << start
+          start += 30
+          #puts @hours
+          
+        end
+      end
+      
+      #retrieve the appointments for this day
+      @apps = doctor.appointments.select {|a| a.scheduled_date.to_date == date.to_date}
+      @busy_hours = @apps.collect {|a| a.minutes }
+      
+      #return @hours.any? {|h| not @busy_hours.include? h }
+      
+      #check if there's any hour available
+      if @hours.any? {|h| not @busy_hours.include? h }
+        @hash = {
+          :date => date,
+          :hours => (@hours - @busy_hours).collect {|x| (x/60).to_s + ":" + (x%60).to_s }
+        }
+        return @hash
+      end   
+      
+      date += 1.day
     end
     
   end
+  
   
   
 end

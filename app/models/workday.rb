@@ -1,5 +1,12 @@
 class Workday < ActiveRecord::Base
   belongs_to :schedule_plan
+  validate :work_hours
+  
+  def work_hours
+    errors.add(:start, "is not a multiple of 30") unless self.start%30 == 0
+    errors.add(:end, "is not a multiple of 30") unless self.end%30 == 0
+  end
+  
   #after_validation(:on => :create) { no_conflict }
   
 =begin  

@@ -28,5 +28,15 @@ class SchedulePlanController < ApplicationController
     end
     
   end
+  
+  def next
+    if params[:date]
+      @date = Date.parse params[:date]
+    else
+      @date = Date.today
+    end
+    
+    render json: SchedulePlan.next_available_day(Doctor.find(params[:doctor_id]), @date)
+  end
 
 end

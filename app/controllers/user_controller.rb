@@ -30,6 +30,19 @@ class UserController < ApplicationController
   # curl "http://localhost:3000/user/create" -d "{\"name\":\"Pedro\", \"username\":\"ppedro\", \"password\":\"12345\"}" -X POST -v
   def create
     @json = ActiveSupport::JSON.decode(request.body.read)
+    @patient = Patient.new :address => @json["address"],
+                           :sex => @json["sex"] ,
+                           :user => User.new( :name => @json["name"],
+                                              :username => @json["username"],
+                                              :password => @json["password"])
+                                              
+    if @patient.save
+      render nothing: true
+    else
+      response.status = 500
+      render text: @users.errors.full_messages
+    end
+=begin
     @user = User.new :name => @json["name"],
              :username => @json["username"],
              :password => @json["password"]
@@ -42,6 +55,7 @@ class UserController < ApplicationController
       # render text: @user.errors.full_messages
       render text: @user.errors.to_json
     end
+=end
   end
 
 end
