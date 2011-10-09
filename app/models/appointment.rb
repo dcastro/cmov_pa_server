@@ -1,12 +1,14 @@
 class Appointment < ActiveRecord::Base
   belongs_to :patient
   belongs_to :doctor
+
   validates :doctor, :patient, :scheduled_date, :presence => true
-  validates :scheduled_date, :uniqueness => {:scope => :doctor}
-  
+   
+  validates :scheduled_date, :uniqueness => {:scope => :doctor_id}
+
   validate :divisible_by_thirty
   validate :correct_datetime
-  before_create :validate_conflicts
+  after_validation(:on => :create) { validate_conflicts }
   
   #makes sure the scheduled_date behaves as a DateTime object, as in, it states a date AND a time,
   #unlike Date or Time objects.
@@ -36,11 +38,12 @@ class Appointment < ActiveRecord::Base
     @days = @sch.workdays.where(:weekday => self.scheduled_date.wday)
     
     @days.each do |d|
-      return true if (d.start .. d.end).include? self.minutes
+      return true if (d.start .. (d.end-30)).include? self.minutes
     end
+
     
     errors.add(:schedule, ": no schedule matches this appointment.")
     return false    
   end
-  
+
 end
