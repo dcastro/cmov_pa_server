@@ -34,7 +34,8 @@ class UserController < ApplicationController
                            :sex => @json["sex"] ,
                            :user => User.new( :name => @json["name"],
                                               :username => @json["username"],
-                                              :password => @json["password"])
+                                              :password => @json["password"],
+                                              :birthdate => @json["birthdate"])
                                               
     if @patient.save
       render nothing: true

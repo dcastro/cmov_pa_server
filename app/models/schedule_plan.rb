@@ -57,12 +57,19 @@ class SchedulePlan < ActiveRecord::Base
     end
   end
   
-  def SchedulePlan.next_available_day(doctor, date)
+  def SchedulePlan.available_day(doctor, date, is_next)
     @sch = doctor.schedule_plans.find_by_active(true)
     @sch2 = doctor.schedule_plans.find_by_active(false)
     
     
-    while true do 
+    while true do
+      if is_next
+        date += 1.day
+      else
+        date -= 1.day
+        return false if date < Date.today
+      end
+       
       @sch = @sch2 if date >= @sch2.start_date
       
       #determin which workdays match the given date
@@ -106,8 +113,7 @@ class SchedulePlan < ActiveRecord::Base
         }
         return @hash
       end   
-      
-      date += 1.day
+     
     end
     
   end
