@@ -13,9 +13,9 @@ User.delete_all
 Patient.delete_all
 VersionLog.delete_all
 
-VersionLog.create :table => "Doctor", :version => 1
-VersionLog.create :table => "SchedulePlan", :version => 1
-VersionLog.create :table => "Appointment", :version => 1
+VersionLog.create :table => "version", :version => 1
+#VersionLog.create :table => "SchedulePlan", :version => 1
+#VersionLog.create :table => "Appointment", :version => 1
 
 Specialty.create :name => "Surgery"
 Specialty.create :name => "Oftalmology"

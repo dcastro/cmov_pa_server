@@ -13,7 +13,7 @@ class Appointment < ActiveRecord::Base
   #makes sure the scheduled_date behaves as a DateTime object, as in, it states a date AND a time,
   #unlike Date or Time objects.
   def correct_datetime
-    self.scheduled_date.class == DateTime
+    errors.add(:scheduled_date, "doesn't behave as a DateTime (YYYY-MM-DD HH:MM)") unless self.scheduled_date.class == DateTime or self.scheduled_date.class == ActiveSupport::TimeWithZone
   end
   
   def minutes
@@ -26,6 +26,8 @@ class Appointment < ActiveRecord::Base
   end
   
   def validate_conflicts
+    return false unless self.doctor
+    
     @sch = self.doctor.schedule_plans.find_by_active(false)
     if not @sch or self.scheduled_date < @sch.start_date
       @sch = self.doctor.schedule_plans.find_by_active(true)

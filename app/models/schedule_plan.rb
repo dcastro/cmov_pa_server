@@ -91,7 +91,7 @@ class SchedulePlan < ActiveRecord::Base
         #puts d.end
         #puts @hours
         
-        until start > e do
+        while start < e do
           @hours << start
           start += 30
           #puts @hours
