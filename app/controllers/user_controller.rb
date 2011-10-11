@@ -3,6 +3,7 @@ class UserController < ApplicationController
   def login
     if user = User.authenticate(params[:username], params[:password])
       session[:username] = user.username
+      session[:type] = user.utilizador_type
       render text: "success"
     else
       response.status = 500

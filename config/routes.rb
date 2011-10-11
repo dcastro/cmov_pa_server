@@ -1,11 +1,13 @@
 CmovPaServer::Application.routes.draw do
   post "appointment/create"
+  get "appointment/index"
 
   post "schedule_plan/create"
 
   get "version/show"
 
   get "patient/index"
+  get "patient/show"
 
   get "user/login"
 
@@ -20,7 +22,7 @@ CmovPaServer::Application.routes.draw do
   get "schedule_plan/next"
   get "schedule_plan/previous"
   get "version/update_db"
-
+  get "version/update_my_appointments"
 
   get "doctor/index"
   get "doctor/ind"

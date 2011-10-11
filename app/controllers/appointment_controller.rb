@@ -20,5 +20,28 @@ class AppointmentController < ApplicationController
       render nothing: true
     end                  
   end
+  
+  def index
+    
+    unless session[:username]
+      response.status = 401
+      render nothing: true
+      return
+    end
+    
+    @user = User.find_by_username(session[:username])
+    render json: @user.utilizador.appointments.to_json(
+        :include => {
+          :patient => {
+            :only => {},
+            :include => {
+              :user => {
+                :only => :name
+              }
+            }
+          }
+        }
+    )
+  end
 
 end
