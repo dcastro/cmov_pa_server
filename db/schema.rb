@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111010104037) do
+ActiveRecord::Schema.define(:version => 20111010153934) do
 
   create_table "appointments", :force => true do |t|
     t.integer  "patient_id"
@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(:version => 20111010104037) do
 
   create_table "doctors", :force => true do |t|
     t.string   "sex"
-    t.string   "photo"
+    t.string   "photo",        :default => "http://t1.stooorage.com/thumbs/1073/4386724_new_user.jpg"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "specialty_id"

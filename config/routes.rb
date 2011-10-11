@@ -19,6 +19,7 @@ CmovPaServer::Application.routes.draw do
   
   get "schedule_plan/next"
   get "schedule_plan/previous"
+  get "version/update_db"
 
 
   get "doctor/index"
