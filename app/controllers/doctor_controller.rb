@@ -26,4 +26,29 @@ class DoctorController < ApplicationController
     render json: @doctors.to_json( :only => [:name, :birthdate], :include => [:user])
   end
   
+  def get_appointments
+    if params[:date]
+      @date = Date.parse(params[:date])
+    else
+      @date = Date.today
+    end
+    
+    @doc = User.find_by_username(session[:username]).utilizador
+    @apps = @doc.appointments.select {|a| a.scheduled_date.to_date == @date}
+    
+    render json: @apps.to_json(
+      :include => {
+        :patient => {
+          :only => {},
+          :include => {
+            :user => {
+              :only => :name
+            }
+          }
+        }
+      }
+    )
+  end
+  
+  
 end
