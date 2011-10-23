@@ -36,7 +36,8 @@ class DoctorController < ApplicationController
     @doc = User.find_by_username(session[:username]).utilizador
     @apps = @doc.appointments.select {|a| a.scheduled_date.to_date == @date}
     
-    render json: @apps.to_json(
+    
+    @json = @apps.to_json(
       :include => {
         :patient => {
           :only => {},
@@ -48,6 +49,15 @@ class DoctorController < ApplicationController
         }
       }
     )
+    
+    @hash = ActiveSupport::JSON.decode(@json)
+    
+    @hash.each do |app|
+      app["scheduled_time"] = app["scheduled_date"].to_datetime.to_s(:time)
+      app["scheduled_date"] = app["scheduled_date"].to_date
+    end
+    
+    render json: @hash
   end
   
   
