@@ -1,4 +1,7 @@
 class Appointment < ActiveRecord::Base
+  
+  default_scope :order => 'scheduled_date'
+  
   belongs_to :patient
   belongs_to :doctor
 
