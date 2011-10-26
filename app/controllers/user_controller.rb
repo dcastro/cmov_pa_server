@@ -4,7 +4,9 @@ class UserController < ApplicationController
     if user = User.authenticate(params[:username], params[:password])
       session[:username] = user.username
       session[:type] = user.utilizador_type
+      session[:id] = user.utilizador.id
       render text: "success"
+    
     else
       response.status = 500
       render text: "wronglol"
@@ -13,6 +15,8 @@ class UserController < ApplicationController
 
   def logout
     session[:username] = nil
+    session[:id] = nil
+    session[:type] = nil
     render :nothing => true
   end
   

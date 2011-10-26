@@ -7,7 +7,7 @@ class SchedulePlanController < ApplicationController
     
     @json = ActiveSupport::JSON.decode(request.body.read)
     
-    @sch = SchedulePlan.new :doctor => Doctor.find(@json["doctor_id"]),
+    @sch = SchedulePlan.new :doctor => Doctor.find(session[:id]), #@json["doctor_id"]),
                             :start_date => @json["start_date"]                            
     
     @json["days"].each do |d|
