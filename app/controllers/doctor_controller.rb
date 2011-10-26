@@ -60,5 +60,37 @@ class DoctorController < ApplicationController
     render json: @hash
   end
   
+  def next_busy_day
+    if params[:date]
+      @date = Date.parse(params[:date])
+    else
+      @date = Date.today
+    end
+    @date += 1.day
+    
+    @doc = Doctor.find(params[:doctor_id])
+    
+    if @busy_day = @doc.appointments.where(["scheduled_date > ?", @date]).minimum(:scheduled_date)
+      render text: @busy_day.to_date  
+    else
+      render nothing: true
+    end
+  end
+  
+  def previous_busy_day
+    
+    @date = Date.parse(params[:date])
+    @doc = Doctor.find(params[:doctor_id])
+    
+    @busy_day = @doc.appointments.where(["scheduled_date < ?", @date]).maximum(:scheduled_date)
+    
+    if @busy_day and @busy_day > Date.today    
+      render text: @busy_day.to_date
+    else
+      render nothing: true
+    end
+  end
+  
+  
   
 end

@@ -29,4 +29,7 @@ Patient.create :sex => "female", :user => User.create(:name => "Sonia", :birthda
 Appointment.create! :doctor => Doctor.first, :patient => Patient.first, :scheduled_date => DateTime.new(2011, 10, 8, 10, 30)
 Appointment.create! doctor: Doctor.first, patient: Patient.first, scheduled_date: DateTime.new(2011, 10, 11, 11, 00)
 
+Appointment.create! doctor: Doctor.first, patient: Patient.first, scheduled_date: DateTime.new(2011, 10, 29, 10, 0)
+Appointment.create! doctor: Doctor.first, patient: Patient.first, scheduled_date: DateTime.new(2011, 11, 1, 10, 0)
+
 
