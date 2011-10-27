@@ -70,7 +70,7 @@ class SchedulePlan < ActiveRecord::Base
         return false if date < Date.today
       end
        
-      @sch = @sch2 if date >= @sch2.start_date
+      @sch = @sch2 if @sch2 and date >= @sch2.start_date
       
       #determin which workdays match the given date
       @days = @sch.workdays.where(:weekday => date.wday).find(:all)
