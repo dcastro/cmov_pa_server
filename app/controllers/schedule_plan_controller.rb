@@ -56,5 +56,15 @@ class SchedulePlanController < ApplicationController
     end
     
   end
+  
+  def index
+    
+    @doc = Doctor.find(session[:id])
+    
+    render json: @doc.schedule_plans.to_json(
+          :include => :workdays
+    )
+    
+  end
 
 end
