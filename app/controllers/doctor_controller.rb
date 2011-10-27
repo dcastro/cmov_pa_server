@@ -70,11 +70,39 @@ class DoctorController < ApplicationController
     
     @doc = Doctor.find(params[:doctor_id])
     
-    if @busy_day = @doc.appointments.where(["scheduled_date > ?", @date]).minimum(:scheduled_date)
-      render text: @busy_day.to_date  
-    else
+    @busy_day = @doc.appointments.where(["scheduled_date > ?", @date]).minimum(:scheduled_date)
+    
+    unless @busy_day
       render nothing: true
+      return
     end
+    
+    apps = @doc.appointments.where(["scheduled_date = ?", @busy_day])
+    
+    @json = apps.to_json(
+      :include => {
+        :patient => {
+          :only => {},
+          :include => {
+            :user => {
+              :only => :name
+            }
+          }
+        }
+      }
+    )
+    
+    @hash = ActiveSupport::JSON.decode(@json)
+    
+    @hash.each do |app|
+      app["scheduled_time"] = app["scheduled_date"].to_datetime.to_s(:time)
+      app["scheduled_date"] = app["scheduled_date"].to_date
+    end
+    
+    render json: @hash
+    
+    
+      
   end
   
   def previous_busy_day
@@ -84,11 +112,35 @@ class DoctorController < ApplicationController
     
     @busy_day = @doc.appointments.where(["scheduled_date < ?", @date]).maximum(:scheduled_date)
     
-    if @busy_day and @busy_day > Date.today    
-      render text: @busy_day.to_date
-    else
+    unless @busy_day and @busy_day > Date.today    
       render nothing: true
+      return
     end
+    
+    apps = @doc.appointments.where(["scheduled_date = ?", @busy_day])
+    
+    @json = apps.to_json(
+      :include => {
+        :patient => {
+          :only => {},
+          :include => {
+            :user => {
+              :only => :name
+            }
+          }
+        }
+      }
+    )
+    
+    @hash = ActiveSupport::JSON.decode(@json)
+    
+    @hash.each do |app|
+      app["scheduled_time"] = app["scheduled_date"].to_datetime.to_s(:time)
+      app["scheduled_date"] = app["scheduled_date"].to_date
+    end
+    
+    render json: @hash
+    
   end
   
   
