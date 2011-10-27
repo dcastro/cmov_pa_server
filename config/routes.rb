@@ -33,6 +33,7 @@ CmovPaServer::Application.routes.draw do
   get "doctor/get_appointments"
   get "doctor/next_busy_day"
   get "doctor/previous_busy_day"
+  get "doctor/busy_days"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

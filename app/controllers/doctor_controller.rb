@@ -144,5 +144,18 @@ class DoctorController < ApplicationController
   end
   
   
+  def busy_days
+    
+    apps = Doctor.find(session[:id]).appointments.where(["scheduled_date >= ?", DateTime.now])
+    
+    dates = apps.map do |app|
+      app.scheduled_date.to_date
+    end
+
+    render json: dates
+    
+  end
+  
+  
   
 end
