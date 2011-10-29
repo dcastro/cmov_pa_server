@@ -68,7 +68,7 @@ class DoctorController < ApplicationController
     end
     @date += 1.day
     
-    @doc = Doctor.find(params[:doctor_id])
+    @doc = Doctor.find(session[:id])
     
     @busy_day = @doc.appointments.where(["scheduled_date > ?", @date]).minimum(:scheduled_date)
     
@@ -76,8 +76,8 @@ class DoctorController < ApplicationController
       render nothing: true
       return
     end
-    
-    apps = @doc.appointments.where(["scheduled_date = ?", @busy_day])
+
+    apps = @doc.appointments.select {|a| a.scheduled_date.to_date == @busy_day.to_date} #where(["scheduled_date = ?", @busy_day])
     
     @json = apps.to_json(
       :include => {
@@ -108,7 +108,7 @@ class DoctorController < ApplicationController
   def previous_busy_day
     
     @date = Date.parse(params[:date])
-    @doc = Doctor.find(params[:doctor_id])
+    @doc = Doctor.find(session[:id])
     
     @busy_day = @doc.appointments.where(["scheduled_date < ?", @date]).maximum(:scheduled_date)
     
@@ -117,7 +117,7 @@ class DoctorController < ApplicationController
       return
     end
     
-    apps = @doc.appointments.where(["scheduled_date = ?", @busy_day])
+    apps = @doc.appointments.select {|a| a.scheduled_date.to_date == @busy_day.to_date}  #where(["scheduled_date = ?", @busy_day])
     
     @json = apps.to_json(
       :include => {

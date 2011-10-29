@@ -11,6 +11,31 @@ class VersionController < ApplicationController
   end
   
   def update_db
+    @json = []
+    @json << VersionLog.find_by_table("version").version
+    @json += Specialty.all
+    
+    render json: @json.to_json(
+      :include => {
+        :doctors => {
+          :include => {
+            :user => {
+              :only => [:birthdate, :name]
+            },
+            :schedule_plans => {
+              :include => {
+                :workdays => {
+                  
+                }
+              }
+            }
+          },
+          :except => [:created_at, :updated_at]
+        }
+      }
+    )
+    
+=begin
     @json = Doctor.all
     @json << VersionLog.find_by_table("version").version
     render json: @json.to_json(
@@ -24,6 +49,7 @@ class VersionController < ApplicationController
         :specialty => {:only => :name}
       }
     )
+=end
   end
   
   def update_my_appointments
