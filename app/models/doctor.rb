@@ -4,6 +4,10 @@ class Doctor < ActiveRecord::Base
   has_one :user, :as => :utilizador
   has_many :appointments
   
+  def Doctor.lol
+    puts "**************"
+  end
+  
 =begin
   validates :password, :confirmation => true #checks if the "type your pw" and "re-type your pw" fields match
   attr_accessor  :password_confirmation
