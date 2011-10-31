@@ -1,6 +1,7 @@
 CmovPaServer::Application.routes.draw do
   post "appointment/create"
   get "appointment/index"
+  delete "appointment/destroy"
 
   post "schedule_plan/create"
 

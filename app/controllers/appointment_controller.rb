@@ -43,5 +43,21 @@ class AppointmentController < ApplicationController
         }
     )
   end
+  
+  def destroy
+    
+    @app = Appointment.find(params[:id])
+    render nothing: true
+    
+    if ((@app.scheduled_date - DateTime.now) * 24 ).to_i < 24
+      response.status = 401 #Unauthorized
+      return
+    end
+    
+    unless @app.destroy
+      response.status = 500
+    end
+    
+  end
 
 end
