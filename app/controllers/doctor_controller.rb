@@ -73,7 +73,7 @@ class DoctorController < ApplicationController
     @busy_day = @doc.appointments.where(["scheduled_date > ?", @date]).minimum(:scheduled_date)
     
     unless @busy_day
-      render nothing: true
+      render json: []
       return
     end
 
@@ -113,7 +113,7 @@ class DoctorController < ApplicationController
     @busy_day = @doc.appointments.where(["scheduled_date < ?", @date]).maximum(:scheduled_date)
     
     unless @busy_day and @busy_day > Date.today    
-      render nothing: true
+      render json: []
       return
     end
     
@@ -152,7 +152,7 @@ class DoctorController < ApplicationController
       app.scheduled_date.to_date
     end
 
-    render json: dates
+    render json: dates.uniq
     
   end
   
