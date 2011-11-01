@@ -33,3 +33,5 @@ Appointment.create! doctor: Doctor.first, patient: Patient.first, scheduled_date
 Appointment.create! doctor: Doctor.first, patient: Patient.first, scheduled_date: DateTime.new(2011, 11, 1, 10, 0)
 
 
+Doctor.create! sex: "male", specialty: Specialty.first, user: User.create(name: "Dr. Troll", birthdate: Date.today, username: "troll", password: "1234")
+

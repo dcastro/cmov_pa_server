@@ -29,8 +29,13 @@ class AppointmentController < ApplicationController
       return
     end
     
-    @user = User.find_by_username(session[:username])
-    render json: @user.utilizador.appointments.to_json(
+    @patient = Patient.find(session[:id])#User.find_by_username(session[:username])
+    
+    @apps = []
+    @apps << @patient.version
+    #@apps += @patient.appointments
+    
+    @json = @patient.appointments.where(["scheduled_date > ?", DateTime.now ]).to_json(
         :include => {
           :patient => {
             :only => {},
@@ -42,6 +47,19 @@ class AppointmentController < ApplicationController
           }
         }
     )
+    
+    @array = ActiveSupport::JSON.decode(@json)
+    
+    @array.each do |app|
+      app["scheduled_time"] = app["scheduled_date"].to_datetime.to_s(:time)
+      app["scheduled_date"] = app["scheduled_date"].to_date
+    end
+    
+    @apps += @array
+    
+    render json: @apps
+    
+    
   end
   
   def destroy

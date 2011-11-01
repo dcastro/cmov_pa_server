@@ -11,6 +11,12 @@ class User < ActiveRecord::Base
 
   validate :password_must_be_present
   
+  before_create :save_corresponding_utilizador
+  
+  def save_corresponding_utilizador
+    self.utilizador.save!    
+  end
+  
   private
   def password_must_be_present
     errors.add(:password, "Missing password") unless hashed_password.present?

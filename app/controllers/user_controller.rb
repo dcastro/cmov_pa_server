@@ -26,7 +26,7 @@ class UserController < ApplicationController
                                   :only => [:birthdate, :name, :username, :utilizador_type],
                                   :include => {
                                     :utilizador => {
-                                        :only => [:sex, :photo, :address]
+                                        :only => [:sex, :photo, :address, :id]
                                     }
                                   })
   end
@@ -35,18 +35,28 @@ class UserController < ApplicationController
   # curl "http://localhost:3000/user/create" -d "{\"name\":\"Pedro\", \"username\":\"ppedro\", \"password\":\"12345\"}" -X POST -v
   def create
     @json = ActiveSupport::JSON.decode(request.body.read)
+=begin
     @patient = Patient.new :address => @json["address"],
-                           :sex => @json["sex"] ,
+                           :sex => @json["sex"],
                            :user => User.new( :name => @json["name"],
                                               :username => @json["username"],
                                               :password => @json["password"],
                                               :birthdate => @json["birthdate"])
-                                              
-    if @patient.save
+=end
+    @user = User.new( :name => @json["name"],
+                             :username => @json["username"],
+                             :password => @json["password"],
+                             :birthdate => @json["birthdate"],
+                             :utilizador => Patient.new( :address => @json["address"],
+                                                      :sex => @json["sex"])
+                             )
+    
+                                         
+    if @user.save
       render nothing: true
     else
       response.status = 500
-      render text: @users.errors.full_messages
+      render text: @user.errors.full_messages
     end
 =begin
     @user = User.new :name => @json["name"],
