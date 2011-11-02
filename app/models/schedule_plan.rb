@@ -73,7 +73,7 @@ class SchedulePlan < ActiveRecord::Base
       @sch = @sch2 if @sch2 and date >= @sch2.start_date
       
       #determin which workdays match the given date
-      @days = @sch.workdays.where(:weekday => date.wday).find(:all)
+      @days = @sch.workdays.where(:weekday => date.cwday).find(:all)
       
       if @days.empty?
      #   next

@@ -40,7 +40,7 @@ class Appointment < ActiveRecord::Base
       return false
     end
     
-    @days = @sch.workdays.where(:weekday => self.scheduled_date.wday)
+    @days = @sch.workdays.where(:weekday => self.scheduled_date.cwday)
     
     @days.each do |d|
       return true if (d.start .. (d.end-30)).include? self.minutes
