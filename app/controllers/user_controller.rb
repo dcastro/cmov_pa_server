@@ -53,7 +53,7 @@ class UserController < ApplicationController
     
                                          
     if @user.save
-      render nothing: true
+      render json: []#nothing: true
     else
       response.status = 500
       render text: @user.errors.full_messages

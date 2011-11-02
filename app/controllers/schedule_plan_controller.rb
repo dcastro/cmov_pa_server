@@ -18,7 +18,8 @@ class SchedulePlanController < ApplicationController
     
     begin
       @sch.save!  
-      render nothing: true    
+      render json: []
+      #render nothing: true    
     rescue ActiveRecord::RecordInvalid => invalid
       response.status = 500
       render text: invalid.record.errors.full_messages
