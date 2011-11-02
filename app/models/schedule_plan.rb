@@ -67,7 +67,7 @@ class SchedulePlan < ActiveRecord::Base
         date += 1.day
       else
         date -= 1.day
-        return false if date < Date.today
+        return false if date <= Date.today
       end
        
       @sch = @sch2 if @sch2 and date >= @sch2.start_date
@@ -109,7 +109,12 @@ class SchedulePlan < ActiveRecord::Base
       if @hours.any? {|h| not @busy_hours.include? h }
         @hash = {
           :date => date,
-          :hours => (@hours - @busy_hours).collect {|x| (x/60).to_s + ":" + (x%60).to_s }
+          :hours => (@hours - @busy_hours).collect do |x|
+            time = (x/60).to_s + ":" + (x%60).to_s
+            time += "0" if (x%60).to_s == "0"
+            time       
+          end
+          
         }
         return @hash
       end   

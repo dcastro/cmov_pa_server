@@ -67,7 +67,8 @@ class AppointmentController < ApplicationController
     @app = Appointment.find(params[:id])
     render nothing: true
     
-    if ((@app.scheduled_date - DateTime.now) * 24 ).to_i < 24
+    
+    if ((@app.scheduled_date - DateTime.now) /60/60 ).to_i < 24
       response.status = 401 #Unauthorized
       return
     end

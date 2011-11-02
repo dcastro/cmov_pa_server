@@ -54,6 +54,7 @@ class SchedulePlanController < ApplicationController
     else
       response.status = 404
       render nothing: true
+      #render nothing: true
     end
     
   end
