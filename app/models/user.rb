@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
   before_create :save_corresponding_utilizador
   
   def save_corresponding_utilizador
-    self.utilizador.save!    
+    self.utilizador.save! if self.utilizador    
   end
   
   private
