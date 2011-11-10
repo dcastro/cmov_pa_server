@@ -23,7 +23,7 @@ class Workday < ActiveRecord::Base
 =end
   
   def compatible_with(ap)
-    return true if ap.scheduled_date.cwday == self.weekday and (self.start .. self.end).include? ap.minutes
+    return true if ap.scheduled_date.to_date.cwday == self.weekday and (self.start .. self.end).include? ap.minutes
     return false
   end
   

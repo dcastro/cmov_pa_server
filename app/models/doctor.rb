@@ -5,7 +5,7 @@ class Doctor < ActiveRecord::Base
   has_many :appointments
   
   def Doctor.lol
-    puts "**************"
+    
   end
   
 =begin

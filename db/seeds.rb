@@ -22,10 +22,10 @@ VersionLog.create! :table => "version", :version => 1
 Specialty.create! :name => "Surgery"
 Specialty.create! :name => "Oftalmology"
 
-Doctor.create! :sex => "male", :specialty => Specialty.all.first, :user => User.create(:name => "Diogo", :birthdate => Date.new(1989, 01, 02), :username => "dcastro", :password => "1234")
+Doctor.create! :sex => "male", :specialty => Specialty.all.first, :photo => "http://www.gettyicons.com/free-icons/101/sigma-medical/png/256/doctor_256.png",  :user => User.create(:name => "Diogo", :birthdate => Date.new(1989, 01, 02), :username => "dcastro", :password => "1234")
 Doctor.create! :sex => "male", :specialty => Specialty.all.second, :user => User.create(:name => "Fernando", :birthdate => Date.new(1989, 9,28), :username => "fern", :password => "1234")
 
-Patient.create! :sex => "female", :user => User.create(:name => "Sonia", :birthdate => Date.new(1989,4,26), :username => "sonia", :password => "123")
+Patient.create! :sex => "female", :address => "Rua que sobe e desce", :user => User.create(:name => "Sonia", :birthdate => Date.new(1989,4,26), :username => "sonia", :password => "123")
 
 SchedulePlan.create! doctor: Doctor.first, active: true
 SchedulePlan.create! doctor: Doctor.first, start_date: Date.new(2012,1,1)
